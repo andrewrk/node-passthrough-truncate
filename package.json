@@ -1,0 +1,15 @@
+{
+  "name": "passthrough-truncate",
+  "version": "0.0.0",
+  "description": "truncate the last N bytes of a stream",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec --check-leaks"
+  },
+  "author": "Andrew Kelley <superjoe30@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~2.0.1",
+    "streamsink": "~1.2.0"
+  }
+}
