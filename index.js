@@ -1,6 +1,8 @@
 var Transform = require('stream').Transform;
 var util = require('util');
 
+module.exports = PassThroughTruncate;
+
 util.inherits(PassThroughTruncate, Transform);
 function PassThroughTruncate(truncateByteCount, options) {
   Transform.call(this, options);
@@ -29,6 +31,7 @@ PassThroughTruncate.prototype._flush = function(cb) {
   var index = this.buffersByteCount - this.truncateByteCount;
   for (;;) {
     var queuedChunk = this.queue.shift();
+    if (!queuedChunk) break;
     var newIndex = index - queuedChunk.length;
     if (newIndex >= 0) {
       this.push(queuedChunk);
