@@ -1,6 +1,6 @@
 {
   "name": "passthrough-truncate",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "truncate the last N bytes of a stream",
   "main": "index.js",
   "scripts": {
