@@ -1,4 +1,4 @@
-# node-passthrough-truncate
+# node-passthrough-truncate [![Build Status](https://travis-ci.org/andrewrk/node-passthrough-truncate.svg?branch=master)](https://travis-ci.org/andrewrk/node-passthrough-truncate) [![Coverage Status](https://img.shields.io/coveralls/andrewrk/node-passthrough-truncate.svg)](https://coveralls.io/r/andrewrk/node-passthrough-truncate)
 
 A `PassThrough` stream which truncates the last N bytes of a stream.
 
