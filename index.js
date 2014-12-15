@@ -18,11 +18,10 @@ PassThroughTruncate.prototype._transform = function(chunk, encoding, cb) {
     var queuedChunk = this.queue[0];
     if (!queuedChunk) break;
     var newBuffersByteCount = this.buffersByteCount - queuedChunk.length;
-    if (newBuffersByteCount >= this.truncateByteCount) {
-      this.push(queuedChunk);
-      this.queue.shift();
-      this.buffersByteCount = newBuffersByteCount;
-    }
+    if (newBuffersByteCount < this.truncateByteCount) break;
+    this.push(queuedChunk);
+    this.queue.shift();
+    this.buffersByteCount = newBuffersByteCount;
   }
   cb();
 };
