@@ -28,23 +28,16 @@ PassThroughTruncate.prototype._transform = function(chunk, encoding, cb) {
 
 PassThroughTruncate.prototype._flush = function(cb) {
   var index = this.buffersByteCount - this.truncateByteCount;
-  for (;;) {
+  if (index < 0) {
+    var err = new Error("stream too small to truncate");
+    err.code = 'ETOOSMALL';
+    cb(err);
+  } else if (index === 0) {
+    cb();
+  } else {
     var queuedChunk = this.queue.shift();
-    if (!queuedChunk) break;
-    var newIndex = index - queuedChunk.length;
-    if (newIndex >= 0) {
-      this.push(queuedChunk);
-      index = newIndex;
-    } else if (queuedChunk.length < index) {
-      var err = new Error("stream too small to truncate");
-      err.code = 'ETOOSMALL';
-      cb(err);
-      return;
-    } else {
-      this.push(queuedChunk.slice(0, index));
-      this.queue = [];
-      break;
-    }
+    this.push(queuedChunk.slice(0, index));
+    this.queue = [];
+    cb();
   }
-  cb();
 };
